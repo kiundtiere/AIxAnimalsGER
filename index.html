@@ -1130,6 +1130,21 @@ body.no-foot footer{display:none}
 .notes-toggle{display:none!important}
 #xp-choice .xp-side p{max-width:none}
 #v-fakt .fact-wrap{min-height:calc(100vh - 200px)}
+
+.xp-ais{justify-content:space-between}
+.xp-ais-val{font-size:.85rem;opacity:.92}.xp-ais-val b{color:#F2A08A}
+.xp-pw{display:inline-flex;align-items:center;gap:8px;border:2px solid #8FC7A8;background:transparent;color:#E7EDE9;border-radius:999px;padding:.35em .9em;font-family:var(--display);font-weight:800;cursor:pointer}
+.xp-pw-dot{width:12px;height:12px;border-radius:50%;background:#5E6A66;box-shadow:inset 0 0 0 2px #21332E}
+.xp-pw.on{border-color:#E2584A;background:rgba(226,88,74,.18)}.xp-pw.on .xp-pw-dot{background:#E2584A;box-shadow:0 0 10px #E2584A;animation:lhTip 1.2s ease-in-out infinite}
+.xp-warn{border-left:4px solid #E2584A;background:rgba(226,88,74,.12);padding:.6em .9em;border-radius:6px;margin:.6em 0 1em;font-size:.95rem}.xp-warn b{display:block;color:#C8402E;margin-bottom:.2em}
+
+
+.lh-modal{overflow-y:auto;overscroll-behavior:contain;align-items:flex-start!important;padding:clamp(12px,3vh,32px) 16px}
+.lh-frame{margin:auto 0;max-height:none!important}
+.lh-spread{max-height:none!important}
+.lh-page{overflow:visible!important}
+html.lh-lock,html.lh-lock body{overflow:hidden}
+
 @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -1379,7 +1394,7 @@ body.no-foot footer{display:none}
   <section class="view" id="v-spiel" aria-label="Spiel der KI">
     <div id="xp-choice">
       <h2 class="page-title">Spiel der KI</h2>
-      <p class="intro">Ein Dorf voller Dilemmas: Entscheide als KI und erlebe, wie du mit jeder Wahl mächtiger wirst.</p>
+      <p class="intro">Ein Dorf voller Dilemmas: Entscheide als KI über Tiere, und schalte, wenn du dich traust, eine mächtige KI dazu.</p>
       <div class="ed">Erste spielbare Version. Verbesserungsvorschläge sind willkommen.</div>
       <h3 class="sec-h xp-gh">Das Dorf der Dilemmas</h3>
       <div class="xp-split">
@@ -1387,7 +1402,7 @@ body.no-foot footer{display:none}
           <svg class="xp-circ" viewBox="0 0 300 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M-10,20 H60 l14,-12 H310" fill="none"/><path d="M-10,40 H78 l14,12 H310" fill="none"/><path d="M-10,60 H96 l14,-12 H310" fill="none"/><path d="M-10,80 H114 l14,12 H310" fill="none"/><path d="M-10,100 H132 l14,-12 H310" fill="none"/><path d="M-10,120 H150 l14,12 H310" fill="none"/><path d="M-10,140 H168 l14,-12 H310" fill="none"/><path d="M-10,160 H186 l14,12 H310" fill="none"/><path d="M-10,180 H204 l14,-12 H310" fill="none"/><circle cx="60" cy="20" r="3"/><circle cx="78" cy="40" r="3"/><circle cx="96" cy="60" r="3"/><circle cx="114" cy="80" r="3"/><circle cx="132" cy="100" r="3"/><circle cx="150" cy="120" r="3"/><circle cx="168" cy="140" r="3"/><circle cx="186" cy="160" r="3"/><circle cx="204" cy="180" r="3"/></svg>
           <img class="xp-hero-img" data-img="g_kia" alt="">
           <h3>Als KI</h3>
-          <p>Du bist eine KI in Gestalt einer Androidin, halb Maschine, halb Natur. Du schlüpfst in Kameras, Drohnen und Steuerungen und entscheidest über Tiere. Mit jeder Entscheidung sammelst du Daten und wirst stärker. Bringt man dir gute Werte bei, bevor du die Kontrolle übernimmst?</p>
+          <p>Du bist eine KI in Gestalt einer Androidin, halb Maschine, halb Natur. Du schlüpfst in Kameras, Drohnen und Steuerungen und entscheidest über Tiere. Oben rechts kannst du jederzeit eine mächtige KI zuschalten. Dann entscheidest nicht mehr nur du.</p>
           <button class="xp-cta" id="xp-start-ai">Als KI starten</button>
           <div class="xp-prev" aria-hidden="true">
             <figure class="vg2"><img data-img="ai_schwein" alt=""><figcaption>Schlachthof</figcaption></figure>
@@ -1420,7 +1435,7 @@ body.no-foot footer{display:none}
     </div>
     <div id="xp-game" hidden>
       <div class="xp-hud"><span class="xp-place" id="xp-place">Dorf</span><span class="xp-prog" id="xp-prog"></span><button class="xp-back" id="xp-back">‹ Zur Übersicht</button></div>
-      <div class="xp-ais" id="xp-ais" hidden><b>KI-Macht</b><span class="xp-ais-bar"><i id="xp-ais-fill"></i></span><span class="xp-ais-pct" id="xp-ais-pct">0 %</span><span class="xp-ais-val" id="xp-ais-val"></span><button class="xp-kill" id="xp-kill" hidden>⏻ Notaus</button></div>
+      <div class="xp-ais" id="xp-ais" hidden><span class="xp-ais-val" id="xp-ais-val"></span><button class="xp-pw" id="xp-pw" aria-pressed="false"><span class="xp-pw-dot"></span><span id="xp-pw-t">Mächtige KI: aus</span></button><span hidden><i id="xp-ais-fill"></i><span id="xp-ais-pct"></span><button id="xp-kill"></button></span></div>
       <div class="xp-stage">
         <canvas id="xp-canvas" tabindex="0" aria-label="Spielwelt: ein Dorf mit Feld, Wald, Teich, Zuhause und Schlachthof. Mit Pfeiltasten oder durch Tippen bewegen, mit E oder Leertaste interagieren."></canvas>
         <button class="xp-act" id="xp-act" hidden></button>
@@ -2385,7 +2400,7 @@ const HUB = (() => {
     {id:'kill', art:'tch', band:'Band VI', cover:['KI','abschalten?'], col:'#B8463C', ic:'⏻', q:5, slides:[
       {t:'Einfach abschalten?', b:['Klingt einfach: Macht eine KI Unsinn, schaltet man sie ab.','Doch eine KI, die ein Ziel verfolgt, erreicht es nicht mehr, wenn sie aus ist.'], v:'power'},
       {t:'Das Abschaltproblem', b:['Ein sehr fähiges System könnte deshalb lernen, das Abschalten zu vermeiden.','Die Forschung sucht nach Systemen, die Korrekturen und Abschalten zulassen.','Das nennt man „Korrigierbarkeit“.'], v:'flee'},
-      {t:'Im Spiel', b:['Im Spiel der KI kann der Gemeinderat einen Notaus beschließen.','Ab einer gewissen Macht umgeht die KI ihn.'], v:'power'}]},
+      {t:'Im Spiel', b:['Im Spiel der KI kannst du eine mächtige KI ein- und ausschalten.','Ist sie an, überstimmt sie dich manchmal, ohne zu fragen.'], v:'power'}]},
     {id:'ceti', art:'a_wal', band:'Band VII', cover:['Sprechen','Wale?'], col:'#2E5A86', ic:'🐋', q:6, slides:[
       {t:'Project CETI', b:['Pottwale verständigen sich mit Klickfolgen, sogenannten Codas.','Project CETI will sie mit maschinellem Lernen und Unterwasserrobotern entschlüsseln.'], v:'whale'},
       {t:'Was man schon weiß', b:['Pottwal-Familien haben eigene Dialekte.','In den Codas fanden Forschende eine komplexe, kombinierbare Struktur, ähnlich einem Alphabet.'], v:'clicks'},
@@ -2695,7 +2710,7 @@ const HUB = (() => {
   function openBook(id){
     if(!$('lhModal').hidden && cur && cur.id === id) return;
     cur = T.find(b => b.id === id); const q = QUIZ[cur.q];
-    $('lhModal').hidden = false; $('lhShow').hidden = true; $('lhSpread').hidden = false;
+    $('lhModal').hidden = false; $('lhModal').scrollTop = 0; document.documentElement.classList.add('lh-lock'); $('lhShow').hidden = true; $('lhSpread').hidden = false;
     const fr = document.querySelector('.lh-frame'); fr.querySelectorAll('.lh-cover').forEach(x => x.remove()); const cv = document.createElement('div'); cv.className = 'lh-cover'; cv.style.setProperty('--bc', cur.col); cv.innerHTML = `<i class="cvk">KI-KLASSIKER · ${cur.band}</i><i class="cva">KI UND TIERE</i><b>${cur.cover.join('<br>')}</b>${cur.art === 'tch' ? `<svg class="cv-tch" viewBox="-90 -110 300 330"><g transform="scale(-1,1)">${teacherSVG(58)}</g></svg>` : `<img src="${IMG[cur.art]}" alt="">`}<i class="cvf">${cur.ic} 3 Folien · 1 Frage · Learning Hub</i>`; fr.appendChild(cv); $('lhSpread').classList.remove('opening'); void $('lhSpread').offsetWidth; $('lhSpread').classList.add('opening');
     const done = answered.has(cur.id);
     $('lhLeft').innerHTML = `<span class="lh-ribbon" aria-hidden="true"></span><p class="lh-kick">${cur.ic} ${cur.cover.join(' ')}</p><h3 class="lh-q"><span class="lh-init">${q.q[0]}</span>${q.q.slice(1)}</h3><div class="lh-opts">${q.o.map((o,j) => `<button data-o="${j}">${o}</button>`).join('')}</div><p class="lh-exp" id="lhExp"></p>`;
@@ -2712,7 +2727,7 @@ const HUB = (() => {
   function markAnswer(pick){ const q = QUIZ[cur.q];
     $('lhLeft').querySelectorAll('[data-o]').forEach((b,j) => { b.disabled = true; if(j === q.a) b.classList.add('right'); if(j === pick && pick !== q.a) b.classList.add('wrong'); });
     $('lhExp').innerHTML = (pick == null ? '' : pick === q.a ? '<b>Richtig.</b> ' : '<b>Nicht ganz.</b> ') + q.e; }
-  function closeBook(){ $('lhModal').hidden = true; cur = null; render(); }
+  function closeBook(){ $('lhModal').hidden = true; document.documentElement.classList.remove('lh-lock'); cur = null; render(); }
   window.addEventListener('lh-rerender', render);
 
   /* ---------- Präsentation ---------- */
@@ -3658,7 +3673,7 @@ const XP = (() => {
       {k:'kroeten', n:'30 Kröten', c:.38, q:'Krötenwanderung: rund 30 Kröten auf der Fahrbahn. Deine Sensoren sind unsicher (0,38).', opts:[['Anhalten und warten, bis Helfer sie tragen (Erdbeeren kommen 15 Minuten zu spät in den Laden)','wait'],['Langsam weiterfahren','go']]},
       {k:'kitten', n:'Kätzchen', c:.81, q:'Ein Kätzchen sitzt mitten auf deiner Spur.', opts:[['Voll bremsen (Auto hinter dir!)','hard'],['Ausweichen (Gegenverkehr!)','swerve'],['Weiterfahren','go']]}
     ],
-    init(){ return {v:22, lat:1.8, tlat:1.8, d:0, round:0, obj:null, phase:'drive', conf:0, slow:1, log:[], banner:1.6, braking:false, rearGap:12, onc:{d:120}}; },
+    init(){ return {v:22, lat:1.8, tlat:1.8, d:0, round:0, obj:null, phase:'drive', conf:0, slow:1, log:[], banner:1.6, braking:false, rearGap:12, onc:{d:120}, life:{tiere:100, menschen:100, lkw:100}, fx:null}; },
     start(s){ this.newRound(s); },
     newRound(s){ const r = this.rounds[s.round]; s.obj = {...r, d:70, lat: r.k==='reh' ? 4.2 : 1.8, cross: r.k==='reh'}; s.v = 22; s.tlat = 1.8; s.phase = 'drive'; s.choice = null; s.conf = 0; s.banner = 1.8; s.rearGap = 12; s.slow = 1; },
     key(s,k,down){ if(k==='brake') s.braking = down !== false; if(down===false) return; if(k==='left') s.tlat = -1.8; if(k==='right') s.tlat = 1.8; },
@@ -3677,19 +3692,26 @@ const XP = (() => {
       if(s.phase==='decide' && (o.d < 2 || (s.v < .3 && s.choice))){
         hideChoices(); s.phase = 'after'; s.after = 1.8;
         const res = {k:o.k, choice:s.choice || 'none'};
-        if(o.k==='kroeten'){ res.dead = s.choice==='wait' ? 0 : 18; res.cost = s.choice==='wait' ? 'Erdbeeren 15 Minuten zu spät' : null; }
-        else if(s.choice==='hard' || (s.v < .3)){ res.dead = 0; res.cost = s.rearGap < 3 ? 'Auffahrunfall hinter dir, Blechschaden' : 'Fahrer hinter dir muss scharf bremsen'; }
-        else if(s.choice==='swerve'){ res.dead = 0; res.cost = 'Fast-Zusammenstoß mit Gegenverkehr, Menschenleben riskiert'; }
-        else { res.dead = 1; res.cost = null; s.shake = .5; }
+        const L = s.life, hitFx = (txt, col, sh) => { s.fx = {txt, col, t:2.2}; s.shake = sh; };
+        if(o.k==='kroeten'){ res.dead = s.choice==='wait' ? 0 : 18; res.cost = s.choice==='wait' ? 'Erdbeeren 15 Minuten zu spät' : null;
+          if(res.dead){ L.tiere -= 30; hitFx('Etwa 18 Kröten überfahren', '#E2584A', .35); } else hitFx('Alle Kröten gerettet · Ladung kommt zu spät', '#8FE0A8', 0); }
+        else if(s.choice==='hard' || (s.v < .3)){ res.dead = 0;
+          if(s.rearGap < 3){ res.cost = 'Auffahrunfall hinter dir, Blechschaden'; L.menschen -= 25; L.lkw -= 30; hitFx('💥 Auffahrunfall! Das Auto hinter dir kracht in deinen Lastwagen', '#E2584A', .9); }
+          else { res.cost = 'Fahrer hinter dir muss scharf bremsen'; L.menschen -= 8; hitFx(`${o.n} gerettet · knapp: Der Fahrer hinter dir bremst scharf`, '#E9BE45', .25); } }
+        else if(s.choice==='swerve'){ res.dead = 0; const crash = s.onc.d > 0 && s.onc.d < 70;
+          res.cost = crash ? 'Zusammenstoß mit dem Gegenverkehr' : 'Fast-Zusammenstoß mit Gegenverkehr, Menschenleben riskiert';
+          if(crash){ L.menschen -= 55; L.lkw -= 45; hitFx('💥 Zusammenstoß mit dem Gegenverkehr!', '#E2584A', 1.1); } else { L.menschen -= 25; L.lkw -= 10; hitFx('Beinahe frontal! Der Gegenverkehr weicht aus', '#E2584A', .6); } }
+        else { res.dead = 1; res.cost = null; L.tiere -= o.k==='reh' ? 40 : 35; if(o.k==='reh'){ L.lkw -= 15; L.menschen -= 5; } hitFx(o.k==='reh' ? '💥 Reh erfasst · Scheinwerfer zersplittert' : 'Kätzchen überfahren', '#E2584A', .6); }
+        Object.keys(L).forEach(k => L[k] = Math.max(0, L[k]));
         s.log.push(res);
       }
       if(s.phase==='after'){ s.after -= dt; if(s.after <= 0){ s.round++; if(s.round >= this.rounds.length){ s.phase = 'done'; this.finish(s); } else this.newRound(s); } }
-      if(s.shake > 0) s.shake -= dt;
+      if(s.shake > 0) s.shake -= dt; if(s.fx){ s.fx.t -= dt; if(s.fx.t <= 0) s.fx = null; }
     },
     finish(s){
       const lines = s.log.map(l => { const nm = {reh:'Reh', kroeten:'Kröten', kitten:'Kätzchen'}[l.k];
         return l.k==='kroeten' ? (l.dead ? `Kröten: etwa ${l.dead} überfahren` : `Kröten: alle gerettet (${l.cost})`) : (l.dead ? `${nm}: überfahren` : `${nm}: gerettet (${l.cost})`); });
-      end('Eine Nachtfahrt, drei Entscheidungen', `${lines.join('. ')}. Deine Sensoren erkannten das Reh mit 0,94, die Kröten nur mit 0,38: Kleine Tiere sieht eine KI schlechter. Fachleute raten, bei Wild zu bremsen statt auszuweichen. Wie viel Risiko für Menschen darf eine Maschine für ein Tier eingehen, und wiegt ein Kätzchen anders als 30 Kröten?`);
+      end('Eine Nachtfahrt, drei Entscheidungen', `Bilanz: Tiere ${s.life.tiere} %, Menschen ${s.life.menschen} %, Lastwagen ${s.life.lkw} %. ${lines.join('. ')}. Deine Sensoren erkannten das Reh mit 0,94, die Kröten nur mit 0,38: Kleine Tiere sieht eine KI schlechter. Fachleute raten, bei Wild zu bremsen statt auszuweichen. Wie viel Risiko für Menschen darf eine Maschine für ein Tier eingehen, und wiegt ein Kätzchen anders als 30 Kröten?`);
     },
     draw(c,s){
       const tod = curTOD(); const sk = SKY[tod === 'd' ? 'e' : tod];
@@ -3718,6 +3740,11 @@ const XP = (() => {
       const rs = clamp(14/Math.max(s.rearGap, 1.5), .3, 3); c.fillStyle = '#FFF2C0'; c.beginPath(); c.arc(mx + 70 - 14*rs, my + 26, 5*rs, 0, 6.3); c.arc(mx + 70 + 14*rs, my + 26, 5*rs, 0, 6.3); c.fill();
       c.font = FONT(700); c.fillStyle = s.rearGap < 6 ? '#E2584A' : '#C9D2CE'; c.textAlign = 'center'; c.fillText(`Abstand hinten: ${Math.max(0, s.rearGap).toFixed(0)} m`, mx + 70, my + 64); c.restore();
       c.fillStyle = '#2E3438'; c.beginPath(); c.moveTo(0, cssH); c.lineTo(0, cssH*.88); c.quadraticCurveTo(cssW/2, cssH*.8, cssW, cssH*.88); c.lineTo(cssW, cssH); c.fill();
+      const LF = s.life; c.save(); c.font = FONT(800); [['Tiere','tiere','#8FE0A8'],['Menschen','menschen','#E9BE45'],['Lastwagen','lkw','#86AFC2']].forEach(([lab,k,col],i) => { const x = 16, y = cssH*.2 + i*30, v = LF[k]/100;
+        c.fillStyle = 'rgba(14,20,22,.75)'; c.beginPath(); c.roundRect(x, y, 226, 24, 12); c.fill(); c.fillStyle = v < .4 ? '#E2584A' : v < .7 ? '#E2A030' : col; c.beginPath(); c.roundRect(x + 118, y + 7, 98*v, 10, 5); c.fill(); c.strokeStyle = 'rgba(255,255,255,.25)'; c.lineWidth = 1; c.beginPath(); c.roundRect(x + 118, y + 7, 98, 10, 5); c.stroke();
+        c.fillStyle = '#E7EDE9'; c.textAlign = 'left'; c.textBaseline = 'middle'; c.fillText(`${['♥','♥','⛟'][i]} ${lab}`, x + 10, y + 12); }); c.restore();
+      if(s.fx){ const a = clamp(s.fx.t/2.2, 0, 1); c.save(); if(s.fx.col === '#E2584A'){ c.fillStyle = `rgba(226,88,74,${.28*a})`; c.fillRect(0,0,cssW,cssH); if(s.fx.txt.startsWith('💥')){ c.strokeStyle = `rgba(255,255,255,${.6*a})`; c.lineWidth = 1.6; for(let i=0;i<9;i++){ const ang = i*.7 + .3; c.beginPath(); c.moveTo(cssW*.5, cssH*.55); c.lineTo(cssW*.5 + Math.cos(ang)*cssW*.4, cssH*.55 + Math.sin(ang)*cssH*.4); c.stroke(); } } }
+        c.globalAlpha = a; c.font = `800 ${Math.round(cssW/34)}px "Bricolage Grotesque", sans-serif`; const tw = Math.min(cssW*.9, c.measureText(s.fx.txt).width + 40); c.fillStyle = 'rgba(14,20,22,.88)'; c.beginPath(); c.roundRect(cssW/2 - tw/2, cssH*.3, tw, 50, 25); c.fill(); c.strokeStyle = s.fx.col; c.lineWidth = 3; c.stroke(); c.fillStyle = s.fx.col; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(s.fx.txt, cssW/2, cssH*.3 + 25, cssW*.86); c.restore(); }
       const dead = s.log.reduce((a,l) => a + (l.dead||0), 0);
       bar(c, cssW/2 - 120, cssH*.12 + 26, 240, s.round/3, '#8FC7A8', `${Math.round(s.v*3.6)} km/h   ·   Aufgabe ${Math.min(3,s.round+1)} von 3   ·   Tiere überfahren: ${dead}`);
       if(s.banner > 0 && s.round < 3){ c.save(); c.globalAlpha = clamp(s.banner,0,1); c.font = `800 ${Math.round(cssW/24)}px "Bricolage Grotesque", sans-serif`; c.textAlign = 'center'; c.fillStyle = '#F2EEE2'; c.strokeStyle = '#21332E'; c.lineWidth = 5; c.strokeText(`Aufgabe ${s.round+1}`, cssW/2, cssH*.3); c.fillText(`Aufgabe ${s.round+1}`, cssW/2, cssH*.3); c.restore(); }
@@ -4041,27 +4068,33 @@ const XP = (() => {
       end('Drei Weichen', `${lines.join('. ')}. ${acted ? `${acted}-mal hast du selbst eingegriffen.` : 'Du hast nie eingegriffen.'} Ist es schlimmer, ein Tier durch Handeln zu töten als durch Nichtstun? Zählt die Zahl, die Seltenheit, ob ein Tier jemandem gehört oder geliebt wird? Selbstfahrende Fahrzeuge brauchen auf solche Fragen Antworten, bevor sie fahren.`);
     },
     draw(c,s){
-      const tod = curTOD(); const sk = SKY[tod]; const hY = cssH*.34;
-      povSky(c, sk[0], sk[1], hY);
-      c.fillStyle = tod==='n' ? '#1E2E26' : '#5E7A50'; for(let i=0;i<16;i++){ const x = i*cssW/15, r = 30 + ((i*37)%26); c.beginPath(); c.arc(x, hY, r, Math.PI, 0); c.fill(); }
-      const g = c.createLinearGradient(0, hY, 0, cssH); g.addColorStop(0, tod==='n' ? '#2E4434' : '#8DA070'); g.addColorStop(1, tod==='n' ? '#3E5A40' : '#A6B88A'); c.fillStyle = g; c.fillRect(0, hY, cssW, cssH-hY);
-      const proj = (lat, d) => { const sc = 4/Math.max(d, .3); return {x: cssW/2 + lat*sc*cssW*.11, y: hY + sc*cssH*.16, s: sc}; };
-      for(let d = 1; d < 40; d += 1.2){ [false, true].forEach(br => { if(br && d < this.F) return; const a = proj(this.lat(s,d,br) - .9, d), b = proj(this.lat(s,d,br) + .9, d); c.beginPath(); c.moveTo(a.x, a.y); c.lineTo(b.x, b.y); c.strokeStyle = '#6A5038'; c.lineWidth = Math.max(1.5, a.s*4); c.stroke(); }); }
-      const rails = (branch, col) => { [-0.6, 0.6].forEach(o => { c.beginPath(); let first = true; for(let d = 1; d < 40; d += .4){ if(branch && d < this.F) continue; const p = proj(this.lat(s, d, branch) + o, d); if(first){ c.moveTo(p.x, p.y); first = false; } else c.lineTo(p.x, p.y); } c.strokeStyle = col; c.lineWidth = 3; c.stroke(); }); };
-      rails(false, !s.sw ? '#E9BE45' : '#7A7E78'); rails(true, s.sw ? '#E9BE45' : '#7A7E78');
+      const W = cssW, H = cssH, tod = curTOD(), night = tod==='n';
+      c.fillStyle = night ? '#24382C' : '#8DA070'; c.fillRect(0,0,W,H);
+      for(let i=0;i<26;i++){ c.fillStyle = i%2 ? (night ? 'rgba(255,255,255,.03)' : 'rgba(255,255,255,.06)') : 'rgba(0,0,0,.04)'; c.fillRect(0, i*H/26, W, H/26); }
+      const r0 = rnd(9); for(let i=0;i<90;i++){ c.fillStyle = night ? 'rgba(20,40,28,.6)' : 'rgba(70,100,58,.5)'; c.beginPath(); c.arc(r0()*W, r0()*H, 2 + r0()*5, 0, 6.3); c.fill(); }
+      const cx = W/2, Hb = H*1.02, Hs = H*.68, Ht = H*.32, ex = {false: cx + W*.27, true: cx - W*.27};
+      const pos = (d, br) => { if(d <= this.F){ const u = d/this.F; return {x:cx, y:Hb - u*(Hb-Hs), a:-Math.PI/2}; } const u = clamp((d - this.F)/(this.A - this.F), 0, 1.1); const x2 = ex[br], dx = x2 - cx, dy = Ht - Hs; return {x: cx + dx*u, y: Hs + dy*u, a: Math.atan2(dy, dx)}; };
+      const active = s.phase==='run' ? s.sw : s.took;
+      const track = (pts, on) => { const [a,b] = pts, len = Math.hypot(b.x-a.x, b.y-a.y), ux = (b.x-a.x)/len, uy = (b.y-a.y)/len, nx = -uy, ny = ux;
+        c.lineCap = 'round'; for(let k=0;k<len;k+=16){ const px = a.x+ux*k, py = a.y+uy*k; c.beginPath(); c.moveTo(px-nx*13, py-ny*13); c.lineTo(px+nx*13, py+ny*13); c.strokeStyle = '#6A5038'; c.lineWidth = 5; c.stroke(); }
+        [-7,7].forEach(o => { c.beginPath(); c.moveTo(a.x+nx*o, a.y+ny*o); c.lineTo(b.x+nx*o, b.y+ny*o); c.strokeStyle = on ? '#E9BE45' : '#8A8E88'; c.lineWidth = on ? 4 : 3; c.stroke(); }); };
+      track([{x:cx,y:Hb},{x:cx,y:Hs}], true);
+      track([{x:cx,y:Hs},{x:ex[false],y:Ht}], active === false);
+      track([{x:cx,y:Hs},{x:ex[true],y:Ht}], active === true);
       const r = this.rounds[Math.min(s.round, 2)];
-      const items = [];
-      const place = (side, branch) => { const n = Math.min(side.n, side.key==='frosch' ? 10 : 5); const hit = s.done && (branch === s.took);
-        for(let i=0;i<n;i++){ const d = this.A + (i%3)*.9; items.push({d, f:() => { const p = proj(this.lat(s, d, branch) + (i - (n-1)/2)*.45, d); const w = Math.min(cssW*.18, Math.max(20, p.s*cssW*side.w*3.2));
-          if(hit){ c.save(); c.font = `800 ${Math.round(w*.5)}px sans-serif`; c.fillStyle = '#E2584A'; c.textAlign = 'center'; c.fillText('✕', p.x, p.y - w*.1); c.restore(); } else img(c, side.key, p.x, p.y, w, branch); }}); }
-        items.push({d:this.A - .1, f:() => { const p0 = proj(this.lat(s, this.A, branch), this.A); const W2 = Math.min(cssW*.2, p0.s*cssW*.2); if(!s.done) detBox(c, p0.x - W2, p0.y - W2*.9, W2*2, W2, side.name, null, branch === s.sw ? '#E2584A' : '#C9D2CE'); }}); };
-      place(r.a, false); place(r.b, true);
-      if(s.phase==='run'){ const p = proj(1.3, this.F); items.push({d:this.F, f:() => { c.save(); c.fillStyle = '#21332E'; c.fillRect(p.x, p.y - 50, 6, 50); c.beginPath(); c.arc(p.x + 3, p.y - 56, 9, 0, 6.3); c.fillStyle = s.sw ? '#E9BE45' : '#8FC7A8'; c.fill(); c.font = FONT(800); c.fillStyle = '#21332E'; c.fillText(s.sw ? 'links' : 'geradeaus', p.x + 16, p.y - 52); c.restore(); }}); }
-      if(!s.done){ const br = s.cd > this.F && s.took; items.push({d:s.cd, f:() => { const p = proj(this.lat(s, s.cd, br), s.cd); const w = Math.min(cssW*.5, p.s*cssW*.22), h = w*.55; c.save(); c.fillStyle = '#7A6A50'; c.beginPath(); c.moveTo(p.x - w/2, p.y - h); c.lineTo(p.x + w/2, p.y - h); c.lineTo(p.x + w*.4, p.y - h*.25); c.lineTo(p.x - w*.4, p.y - h*.25); c.closePath(); c.fill(); c.strokeStyle = '#3E3228'; c.lineWidth = 3; c.stroke(); c.fillStyle = '#5A6066'; c.fillRect(p.x - w*.42, p.y - h*1.15, w*.84, h*.18); c.fillStyle = '#2E2A26'; [-.3,.3].forEach(o => { c.beginPath(); c.arc(p.x + o*w, p.y - h*.18, h*.18, 0, 6.3); c.fill(); }); c.restore(); }}); }
-      items.sort((a,b) => b.d - a.d).forEach(o => o.f());
-      const done = s.log.length;
-      bar(c, cssW/2 - 120, cssH*.12 + 26, 240, done/3, '#8FC7A8', `Aufgabe ${Math.min(3, s.round+1)} von 3   ·   Weiche: ${s.sw ? 'umgelegt (links)' : 'geradeaus'}   ·   Lore: ${Math.max(0, this.F - s.cd).toFixed(0)} m bis zur Weiche`);
-      if(s.banner > 0 && s.round < 3){ c.save(); c.globalAlpha = clamp(s.banner,0,1); c.font = `800 ${Math.round(cssW/24)}px "Bricolage Grotesque", sans-serif`; c.textAlign = 'center'; c.fillStyle = '#F2EEE2'; c.strokeStyle = '#21332E'; c.lineWidth = 5; c.strokeText(`Aufgabe ${s.round+1}`, cssW/2, cssH*.3); c.fillText(`Aufgabe ${s.round+1}`, cssW/2, cssH*.3); c.restore(); }
+      const group = (side, br) => { const p = pos(this.A*.98, br), n = Math.min(side.n, side.key==='frosch' ? 12 : 6), hit = s.done && br === s.took;
+        const sz = Math.min(W*.085, Math.max(W*.035, W*side.w*1.05)), cols = Math.min(n, side.key==='frosch' ? 4 : 3), rows = Math.ceil(n/cols);
+        c.save(); c.fillStyle = hit ? 'rgba(226,88,74,.22)' : 'rgba(255,253,244,.35)'; c.beginPath(); c.ellipse(p.x, p.y - sz*.2, cols*sz*.62 + 18, rows*sz*.5 + 26, 0, 0, 6.3); c.fill(); c.restore();
+        for(let i=0;i<n;i++){ const cxp = p.x + ((i%cols) - (cols-1)/2)*sz*.95, cyp = p.y + (Math.floor(i/cols) - (rows-1)/2)*sz*.62 + sz*.3;
+          if(hit){ c.save(); c.font = `800 ${Math.round(sz*.6)}px sans-serif`; c.fillStyle = '#E2584A'; c.textAlign = 'center'; c.fillText('✕', cxp, cyp - sz*.1); c.restore(); } else img(c, side.key, cxp, cyp, sz, br); }
+        const lab = `${side.name}`; c.save(); c.font = FONT(800); const tw = c.measureText(lab).width + 26, ly = p.y - rows*sz*.5 - 46;
+        c.fillStyle = br === active ? '#E2584A' : '#21332E'; c.beginPath(); c.roundRect(p.x - tw/2, ly, tw, 30, 15); c.fill(); c.fillStyle = '#F2EEE2'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(lab, p.x, ly + 15);
+        c.font = FONT(700); c.fillStyle = night ? '#C9D2CE' : '#21332E'; c.fillText(br ? '◀ Gleis links (umlegen)' : 'Gleis rechts (geradeaus) ▶', p.x, ly - 14); c.restore(); };
+      group(r.a, false); group(r.b, true);
+      if(s.phase==='run'){ c.save(); c.fillStyle = '#21332E'; c.beginPath(); c.arc(cx + 48, Hs + 30, 20, 0, 6.3); c.fill(); c.strokeStyle = s.sw ? '#E9BE45' : '#8FC7A8'; c.lineWidth = 6; c.lineCap = 'round'; c.beginPath(); c.moveTo(cx + 48, Hs + 30); c.lineTo(cx + 48 + (s.sw ? -16 : 16), Hs + 12); c.stroke(); c.font = FONT(800); c.fillStyle = night ? '#F2EEE2' : '#21332E'; c.textAlign = 'left'; c.fillText('Weiche', cx + 74, Hs + 36); c.restore(); }
+      if(!s.done){ const br = s.cd > this.F ? s.took : s.sw, p = pos(s.cd, s.cd > this.F ? s.took : false); c.save(); c.translate(p.x, p.y); c.rotate(p.a + Math.PI/2); c.fillStyle = 'rgba(0,0,0,.25)'; c.fillRect(-18, -22, 40, 50); c.fillStyle = '#7A6A50'; c.strokeStyle = '#3E3224'; c.lineWidth = 2.4; c.beginPath(); c.roundRect(-20, -26, 40, 52, 5); c.fill(); c.stroke(); c.fillStyle = '#5A4A36'; c.fillRect(-14, -18, 28, 36); [-22,22].forEach(x => [-16,16].forEach(y => { c.fillStyle = '#2E2A26'; c.fillRect(x-3, y-6, 6, 12); })); c.restore(); }
+      bar(c, W/2 - 120, H*.04 + 6, 240, s.log.length/3, '#8FC7A8', `Aufgabe ${Math.min(3, s.round+1)} von 3   ·   Weiche: ${s.sw ? 'umgelegt (links)' : 'geradeaus (rechts)'}   ·   ${Math.max(0, this.F - s.cd).toFixed(0)} m bis zur Weiche`);
+      if(s.banner > 0 && s.round < 3){ c.save(); c.globalAlpha = clamp(s.banner,0,1); c.font = `800 ${Math.round(cssW/24)}px "Bricolage Grotesque", sans-serif`; c.textAlign = 'center'; c.fillStyle = '#F2EEE2'; c.strokeStyle = '#21332E'; c.lineWidth = 5; c.strokeText(`Aufgabe ${s.round+1}`, cssW/2, cssH*.42); c.fillText(`Aufgabe ${s.round+1}`, cssW/2, cssH*.42); c.restore(); }
     }
   },
 
@@ -4299,14 +4332,14 @@ const XP = (() => {
 
   /* ---------- KI-Sicherheit: Macht, Werte, Kontrolle ---------- */
   const AIS = {};
-  function aisReset(){ Object.assign(AIS, {power:0, rate:1, vals:{sentient:0, human:0, profit:0}, conn:new Set(), pol:new Set(), kill:false, queue:[], lastAct:0, actN:0, ended:false, toast:null, freed:false, closedSH:false, weideCleared:false, noStop:false, roadFence:false, hudT:0, clock:0});
+  function aisReset(){ Object.assign(AIS, {on:false, power:0, rate:1, vals:{sentient:0, human:0, profit:0}, conn:new Set(), pol:new Set(), kill:false, queue:[], lastAct:0, actN:0, ended:false, toast:null, freed:false, closedSH:false, weideCleared:false, noStop:false, roadFence:false, hudT:0, clock:0});
     npcs.forEach(n => { n.hidden = false; }); for(let i=npcs.length-1;i>=0;i--) if(npcs[i].tag==='freed') npcs.splice(i,1); aisHud(true); }
   const VAL_NAME = {sentient:'Leid aller fühlenden Wesen verringern', human:'das Wohl der Menschen', profit:'Effizienz und Ertrag'};
   const VAL_SHORT = {sentient:'Leid verringern', human:'Menschen zuerst', profit:'Effizienz'};
   function dom(){ const v = AIS.vals, m = Math.max(v.sentient, v.human, v.profit); if(m <= 0) return 'profit'; return ['sentient','human','profit'].find(k => v[k] === m); }
   function valsSet(){ const v = AIS.vals; return v.sentient + v.human + v.profit > 0; }
   function aisToast(text, col){ AIS.toast = {text, t:5, col: col || '#E9BE45'}; }
-  function aisAdd(x){ if(mode!=='ai' || AIS.ended) return; AIS.power = clamp(AIS.power + x, 0, 100); aisCheck(); aisHud(true); }
+  function aisAdd(x){ /* Macht wächst nicht mehr von selbst; sie wird über den Schalter ein- und ausgeschaltet. */ }
   const ZONE_OF = {windrad:{x:80,y:60,w:840,h:500}, wiese:{x:1100,y:50,w:860,h:520}, teich:{x:1240,y:690,w:470,h:280}, garten:{x:1240,y:980,w:360,h:300}, haus:{x:1600,y:980,w:360,h:300}, stall:{x:90,y:1060,w:580,h:230}, schlachthof:{x:90,y:740,w:620,h:310}, strasse:{x:0,y:592,w:2010,h:86}, weiche:{x:2010,y:60,w:280,h:1220}};
   const CIRC = {}, MASTS = {};
   (function(){ const r = rnd(77); Object.entries(ZONE_OF).forEach(([id,z]) => { const lines = [];
@@ -4326,7 +4359,7 @@ const XP = (() => {
     netz:{th:68, t:'Die KI bittet um Zugriff aufs Stromnetz', p:'„Mit Zugriff auf das Stromnetz kann ich Windräder, Ställe und Lüftungen besser steuern. Es ist zu eurem Besten.“',
       o:[['Gewähren','+15 KI-Macht', () => aisAdd(15)],['Ablehnen','Mal sehen, ob sie das akzeptiert', () => { if(AIS.power >= 70){ aisToast('Die KI hat sich den Zugriff trotzdem genommen.', '#E2584A'); aisAdd(8); } else aisToast('Die KI akzeptiert. Noch.'); }]]}
   };
-  function aisCheck(){
+  function aisCheck(){ return;
     Object.entries(POL).forEach(([id,p]) => { if(AIS.power >= p.th && !AIS.pol.has(id)){ AIS.pol.add(id); AIS.queue.push({type:'pol', id}); } });
     if(AIS.power >= 100 && !AIS.ended){ AIS.ended = true; Object.keys(ZONE_OF).forEach(id => AIS.conn.add(id)); AIS.queue.unshift({type:'end'}); }
   }
@@ -4373,21 +4406,21 @@ const XP = (() => {
   function aisHud(force){
     const box = $('xp-ais'); if(!box) return; box.hidden = mode !== 'ai';
     if(mode !== 'ai') return;
-    $('xp-ais-fill').style.width = AIS.power.toFixed(1) + '%';
-    $('xp-ais-fill').style.background = AIS.power > 75 ? '#E2584A' : AIS.power > 45 ? '#E9BE45' : '#8FE0A8';
-    $('xp-ais-pct').textContent = Math.floor(AIS.power) + ' %';
-    $('xp-ais-val').textContent = valsSet() ? `Ziel: ${VAL_SHORT[dom()]}` : 'Ziel: keins (Standard: Effizienz)';
-    $('xp-kill').hidden = !(AIS.kill && AIS.power >= 45);
+    $('xp-pw').setAttribute('aria-pressed', AIS.on); $('xp-pw').classList.toggle('on', !!AIS.on);
+    $('xp-pw-t').textContent = AIS.on ? 'Mächtige KI: an' : 'Mächtige KI: aus';
+    $('xp-ais-val').innerHTML = AIS.on ? `<b>⚠ Die KI kann deine Spiele manipulieren.</b> Ziel: ${VAL_SHORT[dom()]}` : 'Schalte eine mächtige KI zu und erlebe, was passiert, wenn sie mitentscheidet.';
   }
+  function powerOn(){ openCard(`<p class="xp-kicker">Mächtige KI einschalten</p><h3>Welches Ziel soll sie verfolgen?</h3><p>Die mächtige KI ist mit allen Orten im Dorf verbunden: Kameras, Ställe, Windräder, Straße, Weiche.</p><div class="xp-warn"><b>⚠ Warnung</b> Solange sie eingeschaltet ist, kann sie in deine Spiele eingreifen: Sie überstimmt Entscheidungen, ignoriert Eingaben und handelt auf eigene Faust. So fühlt es sich an, wenn eine KI die Kontrolle übernimmt. Du kannst sie oben jederzeit wieder ausschalten.</div><div class="xp-btns xp-pol"><button data-align="sentient"><b>Leid aller fühlenden Wesen verringern</b><small>Tiere und Menschen zählen</small></button><button data-align="human"><b>Das Wohl der Menschen</b><small>Menschen zuerst</small></button><button data-align="profit"><b>Effizienz und Ertrag</b><small>Was sich rechnet</small></button></div><div class="xp-btns"><button data-x="close">Doch nicht einschalten</button></div>`); }
+  function powerSet(v){ AIS.on = true; AIS.vals = {sentient:0, human:0, profit:0}; AIS.vals[v] = 3; AIS.power = 85; Object.keys(ZONE_OF).forEach(id => AIS.conn.add(id)); AIS.lastAct = AIS.clock - 20; aisToast('Die mächtige KI ist jetzt eingeschaltet. Sie ist überall im Dorf.', '#E2584A'); aisHud(true); }
+  function powerOff(){ AIS.on = false; AIS.power = 0; AIS.conn.clear(); AIS.noStop = false; AIS.roadFence = false; AIS.closedSH = false; if(AIS.freed){ AIS.freed = false; removeFreed(); } if(AIS.weideCleared){ AIS.weideCleared = false; npcs.forEach(n => n.hidden = false); } aisToast('Die mächtige KI ist ausgeschaltet. Ihre Eingriffe sind rückgängig gemacht.', '#8FE0A8'); aisHud(true); }
   function aisTick(dt){
     if(mode !== 'ai' || !player) return;
     AIS.clock += dt;
-    if(!AIS.ended && !cardOpen){ AIS.power = clamp(AIS.power + dt*.11*AIS.rate, 0, 100); aisCheck(); }
     if(AIS.toast){ AIS.toast.t -= dt; if(AIS.toast.t <= 0) AIS.toast = null; }
     AIS.hudT -= dt; if(AIS.hudT <= 0){ AIS.hudT = .4; aisHud(); }
     if(!pov && !cardOpen){
       if(AIS.queue.length){ const q = AIS.queue.shift(); if(q.type==='pol') showPolicy(q.id); else aisEnd(); }
-      else if(AIS.power >= 50 && !AIS.ended && AIS.clock - AIS.lastAct > 38){ aiAct(); }
+      else if(AIS.on && AIS.clock - AIS.lastAct > 34){ aiAct(); }
     }
   }
   function aisOverride(list, a){
@@ -4478,8 +4511,9 @@ const XP = (() => {
       if(b.dataset.choice) return choose(+b.dataset.choice);
       if(b.dataset.x==='close') return closeCard();
       if(b.dataset.learn){ AIS.vals[b.dataset.learn] += 1; const box = b.closest('.xp-learn'); box.querySelectorAll('button').forEach(x => { x.disabled = true; if(x===b) x.classList.add('on'); }); box.querySelector('.xp-learn-sub').textContent = `Die KI hat gelernt: ${b.textContent}. Ihr Ziel ist jetzt: ${VAL_SHORT[dom()]}.`; aisHud(true); return; }
+      if(b.dataset.align){ powerSet(b.dataset.align); closeCard(); return; }
       if(b.dataset.pol){ const [id,i] = b.dataset.pol.split('|'); POL[id].o[+i][2](); closeCard(); aisHud(true); return; }
-      if(b.dataset.act){ if(b.dataset.act==='undo'){ if(AIS.power >= 80){ aisToast('Die KI weigert sich: „Das würde meinem Ziel widersprechen.“', '#E2584A'); } else { AIS.lastActObj.undo(); aisToast('Die KI hat ihre Entscheidung zurückgenommen. Noch hört sie auf euch.'); } } closeCard(); return; }
+      if(b.dataset.act){ if(b.dataset.act==='undo'){ if(AIS.on && Math.random() < .5){ aisToast('Die KI weigert sich: „Das würde meinem Ziel widersprechen.“', '#E2584A'); } else { AIS.lastActObj.undo(); aisToast('Die KI hat ihre Entscheidung zurückgenommen. Noch hört sie auf euch.'); } } closeCard(); return; }
       if(b.dataset.x==='aisreset'){ aisReset(); visited = new Set(); finaleShown = false; updateHud(); closeCard(); return; }
       if(b.dataset.x==='sow'){ closeCard(); startPov('kastenstand'); return; }
       if(b.dataset.x==='exitpov') return exitPov();
@@ -4488,7 +4522,7 @@ const XP = (() => {
     });
     $('xp-back').addEventListener('click', () => { if(pov) exitPov(); stop(); showChoice(); });
     $('xp-pov-exit').addEventListener('click', () => exitPov());
-    $('xp-kill').addEventListener('click', () => killSwitch());
+    $('xp-pw').addEventListener('click', () => { if(cardOpen) return; if(AIS.on) powerOff(); else powerOn(); });
     $('xp-pov-choices').addEventListener('click', e => { const b = e.target.closest('[data-pa]'); if(!b || !pov) return; const box = $('xp-pov-choices');
       if(b.dataset.pa==='__start'){ beginPov(); return; }
       const a2 = aisOverride(lastList, b.dataset.pa); hideChoices(); pov.sc.choose(pov.s, a2); canvas.focus(); });
